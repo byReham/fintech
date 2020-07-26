@@ -14,7 +14,6 @@
 
 # Use this setup block to configure all options available in SimpleForm.
 SimpleForm.setup do |config|
-  config.form_class = 'simple_form form-horizontal'
   # Default class for buttons
   config.button_class = 'btn'
 
