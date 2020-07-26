@@ -1,0 +1,14 @@
+= simple_form_for(@payment) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.hidden_field :lock_version
+    = f.input :amount_in_cents
+    = f.input :currency, collection: Money::Currency.table
+    = f.input :purpose
+    = f.input :account_id, collection: User.customer.pluck(:id, :email),
+                           label_method: :second, value_method: :first,
+                           label: t('payments.form.account'), prompt: :translate
+
+  .form-actions.mb-5
+    = f.button :submit, class: 'btn btn-primary'

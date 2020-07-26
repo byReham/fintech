@@ -1,0 +1,49 @@
+- content_for(:page_title)
+  = "Fintech | #{t('titles.payments')}"
+.row.justify-content-md-center
+  .col.col-md-12
+    - if @payments.any?
+      .list-group.mb-2
+        .list-group-item
+          .row.justify-content-between
+            h5.col.col-md-1 = '#'
+            h5.col.col-md-2 = "Account"
+            h5.col.col-md-2 = "Amount"
+            h5.col.col-md-2 = "Purpose"
+            h5.col.col-md-1 = "Status"
+            h5.col.col-md-2 = "Last changes by"
+            h5.col.col-md-2.text-right
+      .list-group
+        - @payments.each.with_index(1) do |payment, index|
+          .list-group-item class=([('bg-info' if payment.executed?), ('bg-secondary' if payment.declined?)])
+            .row.justify-content-between
+              .col.col-md-1 = "#{index}."
+              .col.col-md-2 = payment.account.email
+              .col.col-md-2 = humanized_money_with_symbol(payment.amount)
+              .col.col-md-2 = payment.purpose
+              .col.col-md-1 = payment.status
+              .col.col-md-2 = payment.updater.email
+              .col.col-md-2.text-right
+                  .dropdown
+                    button.btn.btn-secondary.dropdown-toggle[type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"]
+                      = t('actions')
+                    .dropdown-menu[aria-labelledby="dropdownMenu2"]
+                      = link_to payment_path(payment) do
+                        .dropdown-item[type="button"] = t('view')
+                      - unless payment.declined? || payment.executed?
+                        = link_to edit_payment_path(payment) do
+                          .dropdown-item[type="button"] = t('edit')
+                      - if payment.may_accept?
+                        = link_to accept_payment_path(payment, payment: { lock_version: payment.lock_version }), method: :put do
+                          .dropdown-item[type="button"] = t('accept')
+                      - if payment.may_decline?
+                        = link_to decline_payment_path(payment, payment: { lock_version: payment.lock_version }), method: :put do
+                          .dropdown-item[type="button"] = t('decline')
+
+    - else
+      h3.title = t('nothing_found')
+
+    .row.mt-5
+      .col.col-md-auto
+        = link_to new_payment_path do
+          button.btn.btn-primary[type="button"] = t('add_payments')

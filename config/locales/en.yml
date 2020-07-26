@@ -1,0 +1,50 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+en:
+  hello: "Hello world"
+  greeting: "Welcome %{user}!"
+  actions: "Actions"
+  no_actions: "No actions"
+  edit: "Edit"
+  delete: "Delete"
+  accept: "Accept"
+  decline: "Decline"
+  nothing_found: "Found nothing"
+  optimistic_locked: "Can't submit changes because it has been edited by another user. Please refresh and start over."
+  not_authorized: "You are not authorized to perform this action"
+
+  titles:
+    payments: "Payments"
+  nav:
+    payments: "Manage payments"
+  payments:
+    form:
+      account: "Account"
+
+  number:
+    currency:
+      format:
+        unit: "€"
+        delimiter: ","
+        separator: "."
+        precision: 2
+        format: "%n %u"

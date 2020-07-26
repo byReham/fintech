@@ -1,0 +1,32 @@
+p
+  strong Account:
+  span.ml-1
+    = @payment.account.email
+
+p
+  strong Purpose:
+  span.ml-1
+    = @payment.purpose
+
+p
+  strong Amount in cents:
+  span.ml-1
+    = @payment.amount_in_cents
+p
+  strong Currency:
+  span.ml-1
+    = @payment.currency
+
+=> link_to 'Edit', edit_payment_path(@payment)
+'|
+=< link_to 'Back', payments_path
+
+h3.mx-5 = 'History'
+
+.row.justify-content-between.mt-5
+  .col.col-md-12
+    .list-group.mb-2
+      - @payment.versions.each do |version|
+        .list-group-item
+          = "#{version.created_at} #{User.find_by(id: version.version_author)&.email} #{version.event}"
+          = payments_changes(@payment, version).html_safe

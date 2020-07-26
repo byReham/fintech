@@ -1,0 +1,6 @@
+.row.justify-content-md-center
+  .col.col-md-auto
+    = t('greeting', user: current_user.email)
+  - if current_user.admin?
+    .col.col-md-2
+      = link_to t('nav.payments'), :payments
